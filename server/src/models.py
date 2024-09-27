@@ -24,16 +24,17 @@ class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
     # Columns
-    id = db.Column(db.Iteger, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
     firstname = db.Column(db.String)
     lastname = db.Column(db.String)
 
     # Relationships
     cart = db.relationship('Cart', back_populates='users')
+    purchases = db.relationship('Purchase', back_populates='users')
 
     # Serialize rules
-    serialize_rules = ['-cart.users']
+    serialize_rules = ['-cart.users', '-purchases.users']
 
     # Validations
 
@@ -54,10 +55,12 @@ class Item(db.Model, SerializerMixin):
     item_image = db.Column(db.String)
     price = db.Column(db.Float)
 
+    # Relationships
     cart = db.relationship('Cart', back_populates='items')
+    purchases = db.relationship('Purchase', back_populates='items')
 
     # Serialize rules
-    serialize_rules = ['-cart.items']
+    serialize_rules = ['-cart.items', '-purchases.items']
 
     # Validations
 
@@ -72,6 +75,7 @@ class Cart(db.Model, SerializerMixin):
     # Columns
     id = db.Column(db.Integer, primary_key=True)
     qty = db.Column(db.Integer)
+    sale_price = db.Column(db.Float)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
 
@@ -87,3 +91,34 @@ class Cart(db.Model, SerializerMixin):
     # Repr
     def __repr__(self) -> str:
         return f'<Cart {self.id}, {self.user_id}, {self.item_id}, {self.qty}>'
+    
+class Purchase(db.Model, SerializerMixin):
+    # tablename
+    __tablename__ = 'purchases'
+    # columns
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String)
+    qty = db.Column(db.Integer)
+    sale_price = db.Column(db.Float)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+    
+    # Relationships
+    users = db.relationship('User', back_populates='purchases')
+    items = db.relationship('Item', back_populates='purchases')
+    # Serlialize rules
+    serialize_rules = ['-users.purchases', '-items.purchases']
+    # Validations
+    # Repr
+    def __repr__(self) -> str:
+        return f'<Purchase {self.id}, {self.date}, {self.qty}, {self.sale_price}, {self.user_id}, {self.item_id}>'
+
+    
+# Baseline
+# class ClassName(db.Model, SerializerMixin):
+    # tablename
+    # columns
+    # Relationships
+    # Serlialize rules
+    # Validations
+    # Repr

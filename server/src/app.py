@@ -2,13 +2,125 @@ import os
 import traceback
 from flask import Flask, request, session
 from flask_migrate import Migrate
-from models import db, User, Item, Cart
+from models import db, User, Item, Cart, Purchase
 from flask_cors import CORS
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URI']
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+migrate = Migrate(app, db)
+
+db.init_app(app)
+
+@app.route('/items', methods=['GET', 'POST'])
+def get_all_items():
+    if request.method == 'GET':
+        all_items = [item.to_dict() for item in Item.query.all()]
+        return all_items, 200
+    if request.method == 'POST':
+        data = request.get_json()
+        item = Item(
+            name=data.get('name'), 
+            description=data.get('description'), 
+            qty=data.get('qty'),
+            item_image=data.get('item_image'), 
+            price=data.get('price')
+        )
+        db.session.add(item)
+        db.session.commit()
+        return item.to_dict(),201
+
+@app.route('/items/<int:id>', methods=['GET','PATCH', 'DELETE'])
+def items_by_id(id):
+    item = Item.query.filter_by(id=id).first()
+    if item is None:
+        return {"error":"Item not found"}, 404
+    if request.method == 'GET':
+        return item.to_dict(),200
+    if request.method == 'PATCH':
+        data = request.get_json()
+        for attr in data:
+            setattr(item, attr, data[attr])
+        db.session.add(item)
+        db.session.commit()
+        return item.to_dict(),202 
+    if request.method == 'DELETE':
+        db.session.delete(item)
+        db.session.commit()
+        return {},204
+    
+
+@app.route('/cart', methods=['GET', 'POST'])
+def get_all_cart_items():
+    if request.method == 'GET':
+        all_items = [item.to_dict() for item in Cart.query.all()]
+        return all_items,200
+    if request.method == 'POST':
+        data = request.get_json()
+        item = Cart(
+            qty = data.get('qty', 0), 
+            sale_price = data.get('sale_price'), 
+            user_id = data.get('user_id'),
+            item_id = data.get('item_id')
+        )
+        db.session.add(item)
+        db.session.commit()
+        return item.to_dict(), 201
+
+@app.route('/cart/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
+def cart_update(id):
+    item = Cart.query.filter_by(id=id).first()
+    if item is None:
+        return {'error':'Item not found'}, 404
+    if request.method == 'GET':
+        return item.to_dict(), 200
+    if request.method == 'PATCH':
+        data = request.get_json()
+        for attr in data:
+            setattr(item, attr, data[attr])
+        db.session.add(item)
+        db.session.commit()
+        return item.to_dict(), 202
+    if request.method == 'DELETE':
+        db.session.delete(item)
+        db.session.commit()
+        return {}, 204
+
+@app.route('/purchases', methods=['GET', 'POST'])
+def get_all_purchases():
+    if request.method == 'GET':
+        all_items = [item.to_dict() for item in Purchase.query.all()]
+        return all_items, 200
+    if request.method == 'POST':
+        data = request.get_json()
+        item = Purchase(
+            date = data.get('date'),
+            qty = data.get('qty', 0),
+            sale_price = data.get('sale_price', 0),
+            user_id = data.get('user_id'), 
+            item_id = data.get('item_id')
+        )
+        db.session.add(item)
+        db.session.commit()
+        return item.to_dict(), 201
+
+@app.route('/purchases/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
+def purchases_update(id):
+    item = Purchase.query.filter_by(id=id).first()
+    if item is None:
+        return {'error':'Item not found'}
+    if request.method == 'PATCH':
+        data = request.get_json()
+        for attr in data:
+            setattr(item, attr, data.get(attr))
+        db.session.add(item)
+        db.session.commit()
+        return item.to_dict(), 202
+    if request.method == 'DELETE':
+        db.session.delete(item)
+        db.session.commit()
+        return {}, 204
 
 
 if __name__ == '__main__':
