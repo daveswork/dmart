@@ -15,14 +15,14 @@ def run():
     fake = Faker()
 
     users = []
-    things = [{'name':'comb', 'link':'https://i.imgur.com/jIN9hIA.jpg'}, 
-              {'name':'beanie', 'link':'https://i.imgur.com/nGwLAH4.jpg'}, 
-              {'name':'hacky sack', 'link':'https://i.imgur.com/w2z4bpq.jpg'}, 
-              {'name':'soap', 'link':'https://i.imgur.com/EMbSFQZ.jpg'}, 
-              {'name':'chair', 'link':'https://i.imgur.com/SrmeCdX.jpg'}, 
-              {'name':'pillow', 'link':'https://i.imgur.com/LDXYi89.jpg'}, 
-              {'name':'t-shirt', 'link':'https://i.imgur.com/P2PlMUU.jpg'}, 
-              {'name':'pot', 'link':'https://i.imgur.com/sIudgDS.jpg'}]
+    things = [{'name':'comb', 'link':'https://i.imgur.com/jIN9hIA.jpg', 'description':'A basic comb'}, 
+              {'name':'beanie', 'link':'https://i.imgur.com/nGwLAH4.jpg', 'description':'A basic beanie'}, 
+              {'name':'hacky sack', 'link':'https://i.imgur.com/w2z4bpq.jpg', 'description':'A basic hacky sack'}, 
+              {'name':'soap', 'link':'https://i.imgur.com/EMbSFQZ.jpg', 'description':'A basic soap'}, 
+              {'name':'chair', 'link':'https://i.imgur.com/SrmeCdX.jpg', 'description':'A basic chair'}, 
+              {'name':'pillow', 'link':'https://i.imgur.com/LDXYi89.jpg', 'description':'A basic pillow'}, 
+              {'name':'t-shirt', 'link':'https://i.imgur.com/C3hdqbS.jpg', 'description':'A basic t-shirt'}, 
+              {'name':'pot', 'link':'https://i.imgur.com/sIudgDS.jpg', 'description':'A basic pot'}]
     items = []
     for i in range(4):
         u = User(
@@ -35,10 +35,10 @@ def run():
     for i in range(len(things)):
         item = Item(
             name = things[i]['name'],
-            description = fake.sentence(),
+            description = things[i]['description'],
             qty = randint(1, 30),
             item_image = things[i]['link'],
-            price = randint(5, 50)
+            price = randint(5, 20)
         )
         print(item)
         items.append(item)

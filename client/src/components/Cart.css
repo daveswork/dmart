@@ -1,0 +1,5 @@
+.Cart {
+    background-color: aqua;
+    border: 5px;
+    display: flex;
+}

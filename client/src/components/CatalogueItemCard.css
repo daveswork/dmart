@@ -1,0 +1,13 @@
+.Card {
+    border: 10px;
+    border-color: yellow;
+    border-radius: 20%;
+    flex-wrap: wrap;
+    border-width: 50px;
+    padding: auto;
+}
+
+.Card img{
+    width: auto;
+    height: 150px;
+}

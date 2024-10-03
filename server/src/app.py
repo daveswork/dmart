@@ -13,6 +13,8 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
+# Item route and functions
+#
 @app.route('/items', methods=['GET', 'POST'])
 def get_all_items():
     if request.method == 'GET':
@@ -29,7 +31,7 @@ def get_all_items():
         )
         db.session.add(item)
         db.session.commit()
-        return item.to_dict(),201
+        return item.to_dict(),200
 
 @app.route('/items/<int:id>', methods=['GET','PATCH', 'DELETE'])
 def items_by_id(id):
@@ -44,13 +46,15 @@ def items_by_id(id):
             setattr(item, attr, data[attr])
         db.session.add(item)
         db.session.commit()
-        return item.to_dict(),202 
+        return item.to_dict(),200 
     if request.method == 'DELETE':
         db.session.delete(item)
         db.session.commit()
-        return {},204
+        return {},200
     
 
+# Cart routes and functions
+#
 @app.route('/cart', methods=['GET', 'POST'])
 def get_all_cart_items():
     if request.method == 'GET':
@@ -66,7 +70,7 @@ def get_all_cart_items():
         )
         db.session.add(item)
         db.session.commit()
-        return item.to_dict(), 201
+        return item.to_dict(), 200
 
 @app.route('/cart/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def cart_update(id):
@@ -81,12 +85,36 @@ def cart_update(id):
             setattr(item, attr, data[attr])
         db.session.add(item)
         db.session.commit()
-        return item.to_dict(), 202
+        return item.to_dict(), 200
     if request.method == 'DELETE':
         db.session.delete(item)
         db.session.commit()
-        return {}, 204
+        return {}, 200
 
+@app.route('/add-to-cart/<int:id>', methods=['GET'])
+def add_to_cart(id):
+    item = Item.query.filter_by(id=id).first()
+    cart_item = Cart.query.filter_by(item_id=id).first()
+    print(cart_item)
+    if cart_item is None:
+        cart_item = Cart(
+            qty =1,
+            sale_price = item.price,
+            item_id = item.id
+        )
+        db.session.add(cart_item)
+        db.session.commit()
+        return cart_item.to_dict(), 200
+    else:
+        cart_item.qty +=1
+        db.session.add(cart_item)
+        db.session.commit()
+        return cart_item.to_dict(),200
+
+    
+
+# Purchases route and functions
+#
 @app.route('/purchases', methods=['GET', 'POST'])
 def get_all_purchases():
     if request.method == 'GET':
@@ -103,7 +131,7 @@ def get_all_purchases():
         )
         db.session.add(item)
         db.session.commit()
-        return item.to_dict(), 201
+        return item.to_dict(), 200
 
 @app.route('/purchases/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def purchases_update(id):
@@ -116,11 +144,11 @@ def purchases_update(id):
             setattr(item, attr, data.get(attr))
         db.session.add(item)
         db.session.commit()
-        return item.to_dict(), 202
+        return item.to_dict(), 200
     if request.method == 'DELETE':
         db.session.delete(item)
         db.session.commit()
-        return {}, 204
+        return {}, 200
 
 
 if __name__ == '__main__':

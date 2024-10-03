@@ -1,0 +1,14 @@
+
+.catalogue{
+    border: 5px;
+    border-color: yellow;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-around;
+}
+
+.catalogue img{
+    width: 100 px;
+}
