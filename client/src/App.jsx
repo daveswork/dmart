@@ -21,6 +21,10 @@ function App() {
     })
   }, [])
 
+  function updateProductList(newItem){
+    setProductList([...productList, newItem])
+  }
+
   //==============================================================================================
   // ShoppingCart states and functions
   const [shoppingCartList, setShoppingCartList] = useState([])
@@ -81,7 +85,7 @@ function App() {
   <div>
     <header><NavBar shoppingCartList={shoppingCartList}/></header>
     <Outlet context={{
-      productList:productList, setProductList:setProductList,
+      productList:productList, setProductList:setProductList, updateProductList:updateProductList,
       shoppingCartList:shoppingCartList, setShoppingCartList:setShoppingCartList, removeCartItem:removeCartItem, updateShoppingCart:updateShoppingCart,
       purchasesList:purchasesList, setPurchasesList:setPurchasesList
     }}/>
