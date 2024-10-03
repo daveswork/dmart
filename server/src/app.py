@@ -25,9 +25,9 @@ def get_all_items():
         item = Item(
             name=data.get('name'), 
             description=data.get('description'), 
-            qty=data.get('qty'),
+            qty=int(data.get('qty')),
             item_image=data.get('item_image'), 
-            price=data.get('price')
+            price=float(data.get('price'))
         )
         db.session.add(item)
         db.session.commit()
