@@ -15,14 +15,14 @@ def run():
     fake = Faker()
 
     users = []
-    things = [{'name':'comb', 'link':'https://i.imgur.com/jIN9hIA.jpg', 'description':'A basic comb'}, 
-              {'name':'beanie', 'link':'https://i.imgur.com/nGwLAH4.jpg', 'description':'A basic beanie'}, 
-              {'name':'hacky sack', 'link':'https://i.imgur.com/w2z4bpq.jpg', 'description':'A basic hacky sack'}, 
-              {'name':'soap', 'link':'https://i.imgur.com/EMbSFQZ.jpg', 'description':'A basic soap'}, 
-              {'name':'chair', 'link':'https://i.imgur.com/SrmeCdX.jpg', 'description':'A basic chair'}, 
-              {'name':'pillow', 'link':'https://i.imgur.com/LDXYi89.jpg', 'description':'A basic pillow'}, 
-              {'name':'t-shirt', 'link':'https://i.imgur.com/C3hdqbS.jpg', 'description':'A basic t-shirt'}, 
-              {'name':'pot', 'link':'https://i.imgur.com/sIudgDS.jpg', 'description':'A basic pot'}]
+    things = [{'name':'comb', 'link':'/comb.jpg', 'description':'A basic comb'}, 
+              {'name':'beanie', 'link':'/beanie.jpg', 'description':'A basic beanie'}, 
+              {'name':'hacky sack', 'link':'/hacky-sack.jpg', 'description':'A basic hacky sack'}, 
+              {'name':'soap', 'link':'/soap.jpg', 'description':'A basic soap'}, 
+              {'name':'chair', 'link':'/chair.jpg', 'description':'A basic chair'}, 
+              {'name':'pillow', 'link':'/pillow.jpg', 'description':'A basic pillow'}, 
+              {'name':'t-shirt', 'link':'/t-shirt.jpeg', 'description':'A basic t-shirt'}, 
+              {'name':'pot', 'link':'/pot.jpg', 'description':'A basic pot'}]
     items = []
     for i in range(4):
         u = User(

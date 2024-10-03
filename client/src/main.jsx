@@ -6,6 +6,8 @@ import CatalogueItemCard from './components/CatalogueItemCard.jsx'
 import Catalogue from './components/Catalogue.jsx'
 import Cart from './components/Cart.jsx'
 import Purchases from './components/Purchases.jsx'
+import AddItem from './components/AddItem.jsx'
+import Profile from './components/Profile.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { itemsLoader, itemDetailsLoader, cartListLoader, purchasesListLoader } from './loaders.js'
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
         path: '/purchases',
         element: <Purchases />,
         loader: purchasesListLoader
+      },
+      {
+        path: '/profile',
+        element: <Profile />
+      },
+      {
+        path: '/add-item',
+        element: <AddItem />
       }
     ]
   }

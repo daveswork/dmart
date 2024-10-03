@@ -13,6 +13,7 @@ function NavBar({shoppingCartList}){
                 <NavLink to="/cart">Cart: {total_cart_items}</NavLink>
                 <NavLink to="/purchases">Purchases</NavLink>
                 <NavLink to="/profile">Profile</NavLink>
+                <NavLink to="/add-item">Add Item</NavLink>
             </nav>
         </div>
     )

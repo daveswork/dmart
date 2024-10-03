@@ -5,7 +5,7 @@ function AddItem(){
 
     return(
         <div>
-
+            Hello, AddItem!
         </div>
     )
 }
