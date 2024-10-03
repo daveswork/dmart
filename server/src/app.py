@@ -87,6 +87,10 @@ def cart_update(id):
         db.session.commit()
         return item.to_dict(), 200
     if request.method == 'DELETE':
+        inventory = Item.query.filter_by(id=item.item_id).first()
+        inventory.qty += item.qty
+        db.session.add(inventory)
+        db.session.commit()
         db.session.delete(item)
         db.session.commit()
         return {}, 200
@@ -112,10 +116,17 @@ def add_to_cart(id):
         )
         db.session.add(cart_item)
         db.session.commit()
+        item.qty -= 1
+        db.session.add(item)
+        db.session.commit()
+
         return cart_item.to_dict(), 200
     else:
         cart_item.qty +=1
         db.session.add(cart_item)
+        db.session.commit()
+        item.qty -= 1
+        db.session.add(item)
         db.session.commit()
         return cart_item.to_dict(),200
 
