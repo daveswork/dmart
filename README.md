@@ -1,6 +1,20 @@
 # dmart
 A simple shopping application. 
 
+## Home view:
+Displays a catalogue of products currently in inventory. 
+Allows you add an item to the shopping cart. 
+Displays the quantity of items in the shopping cart. 
+## Cart view:
+The shopping cart view allows you to remove an item. 
+## Purchase view:
+Work in progress.
+## Profile view:
+Work in progress.
+## Add Item view:
+Allows you to add a new item to the inventory.
+
+
 
 # Installation:
 
