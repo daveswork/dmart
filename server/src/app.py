@@ -93,6 +93,14 @@ def cart_update(id):
 
 @app.route('/add-to-cart/<int:id>', methods=['GET'])
 def add_to_cart(id):
+    '''
+    Takes an item id. 
+    Returns a cart_item.
+    Looks up the item from the items table using the id.
+    Checks if the item is in the cart table. 
+    If it is, then increment the quantity.
+    If it isn't, then add the item to the cart table with an initial quantity of 1.
+    '''
     item = Item.query.filter_by(id=id).first()
     cart_item = Cart.query.filter_by(item_id=id).first()
     print(cart_item)
