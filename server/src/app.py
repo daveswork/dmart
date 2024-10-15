@@ -1,10 +1,13 @@
 import os
 import traceback
+import stripe
 from flask import Flask, request, session
 from flask_migrate import Migrate
 from models import db, User, Item, Cart, Purchase
 from flask_cors import CORS
 
+
+# FLASK app config
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -12,6 +15,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 migrate = Migrate(app, db)
 
 db.init_app(app)
+
+# Stripe config
+stripe.api_key = os.environ.get('STRIPE_SECRET')
 
 # Item route and functions
 #

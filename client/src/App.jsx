@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import "jquery"
+import "bootstrap/dist/js/bootstrap"
+// import "bootstrap/dist/css/bootstrap.css"
 import { Outlet, useLoaderData } from 'react-router-dom'
 import NavBar from './components/NavBar'
 
