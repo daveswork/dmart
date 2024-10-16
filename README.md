@@ -19,6 +19,21 @@ Allows you to add a new item to the inventory.
 # Installation:
 
 ## Backend
+
+###
+ENV vars
+STRIPE_SECRET # Stripe API Secret Key
+SECRET_KEY # A unique secret key for use in JWT authentication
+
+To create the secret key use the following:
+python
+ import secrets
+ secrets.token_hex(16)
+
+ Use the above to store a unique key for JWT encryption.
+
+
+###
 Run the following:
 
 ```

@@ -31,20 +31,23 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String)
     firstname = db.Column(db.String)
     lastname = db.Column(db.String)
-    password_hash = db.Column(db.String)
+    _password_hash = db.Column(db.String)
 
     @hybrid_property
-    def password(self):
+    def password_hash(self):
         """ Returns the password hash """
+        raise AttributeError('Password hashes cannot be viewed')
     
-    @password.setter
+    @password_hash.setter
     def password(self, plain_text_password):
-        bytes = plain_text_password.encode('utf-8')
-        self.password_hash = bcrypt.generate_password_hash(bytes)
+        password_hash = bcrypt.generate_password_hash(
+            plain_text_password.encode('utf-8')
+        )
+        self._password_hash = password_hash.decode('utf-8')
     
     def authenticate(self, password):
         return bcrypt.check_password_hash(
-            self.password_hash, 
+            self._password_hash, 
             password.encode('utf-8')
         )
 
@@ -53,7 +56,7 @@ class User(db.Model, SerializerMixin):
     purchases = db.relationship('Purchase', back_populates='users')
 
     # Serialize rules
-    serialize_rules = ['-cart.users', '-purchases.users', '-password_hash']
+    serialize_rules = ['-cart.users', '-purchases.users', '-_password_hash']
 
     # Validations
 
