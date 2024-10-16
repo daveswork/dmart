@@ -4,7 +4,7 @@ import './Catalogue.css';
 
 function Cart(){
 
-    const {shoppingCartList, removeCartItem} = useOutletContext()
+    const {shoppingCartList, removeCartItem, addOne, removeOne} = useOutletContext()
     console.log(shoppingCartList.length)
     
     const initial_value = 0
@@ -12,7 +12,7 @@ function Cart(){
 
     const item_cards = shoppingCartList.map((item, index)=>{
         return (
-            <CartItem key={index} item={item} removeCartItem={removeCartItem}/>
+            <CartItem key={index} item={item} removeCartItem={removeCartItem} addOne={addOne} removeOne={removeOne}/>
         )
     }
 )

@@ -1,7 +1,8 @@
 import os
 import traceback
 import stripe
-from flask import Flask, request, session
+import json
+from flask import Flask, request, session, jsonify
 from flask_migrate import Migrate
 from models import db, User, Item, Cart, Purchase
 from flask_cors import CORS
@@ -18,6 +19,31 @@ db.init_app(app)
 
 # Stripe config
 stripe.api_key = os.environ.get('STRIPE_SECRET')
+
+def calculate_order_total(items):
+    # Calculate order total
+    # Payment using an aggregate total
+    return 1400
+
+
+@app.route('/create_payment_intent', methods=['POST'])
+def create_payment():
+    try:
+        data = request.get_json().get('items', 1)
+        intent = stripe.PaymentIntent.create(
+            amount=calculate_order_total(data),
+            currency='usd',
+            automatic_payment_methods={
+                'enabled': True
+            },
+        )
+        return jsonify({
+            'clientSecret' : intent['client_secret'],
+            'dpmCheckerLink' : 'https://dashboard.stripe.com/settings/payment_methods/review?transaction_id={}'.format(intent['id']),
+        })
+    except Exception as e:
+        print(e)
+
 
 # Item route and functions
 #

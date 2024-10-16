@@ -56,7 +56,6 @@ function App() {
       })
       setShoppingCartList(new_list)
     }
-    console.log(shoppingCartList)
     
   }
 
@@ -71,6 +70,34 @@ function App() {
       }
     })
     setShoppingCartList(prunedCartItems)
+  }
+
+  // Updating the quantities in the cart
+  function addOne(cartItemId){
+    const updated_list = shoppingCartList.map(item => {
+      if (item.id === cartItemId){
+        item.qty += 1
+        return item
+      }else {
+        return item
+      }
+    })
+    setShoppingCartList(updated_list)
+  }
+
+  function removeOne(cartItemId){
+    const updated_list = shoppingCartList.map(item => {
+      if (item.id === cartItemId){
+        if (item.qty === 0){
+          return item
+        }
+        item.qty -= 1
+        return item
+      }else {
+        return item
+      }
+    })
+    setShoppingCartList(updated_list)
   }
 
   //==============================================================================================
@@ -89,7 +116,7 @@ function App() {
     <header><NavBar shoppingCartList={shoppingCartList}/></header>
     <Outlet context={{
       productList:productList, setProductList:setProductList, updateProductList:updateProductList,
-      shoppingCartList:shoppingCartList, setShoppingCartList:setShoppingCartList, removeCartItem:removeCartItem, updateShoppingCart:updateShoppingCart,
+      shoppingCartList:shoppingCartList, setShoppingCartList:setShoppingCartList, removeCartItem:removeCartItem, updateShoppingCart:updateShoppingCart, addOne:addOne, removeOne:removeOne,
       purchasesList:purchasesList, setPurchasesList:setPurchasesList
     }}/>
   </div>
