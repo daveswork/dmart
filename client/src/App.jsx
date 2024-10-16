@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import "jquery"
 import "bootstrap/dist/js/bootstrap"
-// import "bootstrap/dist/css/bootstrap.css"
+import "bootstrap/dist/css/bootstrap.css"
 import { Outlet, useLoaderData } from 'react-router-dom'
 import NavBar from './components/NavBar'
 
@@ -73,10 +73,27 @@ function App() {
   }
 
   // Updating the quantities in the cart
+
+  // BE
+  
+  function updateBeQty(item){fetch(`/api/cart/${item.id}`,
+    {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({"qty": item.qty})
+    }
+    )
+  }
+
+  // FE
   function addOne(cartItemId){
     const updated_list = shoppingCartList.map(item => {
       if (item.id === cartItemId){
         item.qty += 1
+        updateBeQty(item)
         return item
       }else {
         return item
@@ -92,6 +109,7 @@ function App() {
           return item
         }
         item.qty -= 1
+        updateBeQty(item)
         return item
       }else {
         return item

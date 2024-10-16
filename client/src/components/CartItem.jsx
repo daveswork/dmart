@@ -21,12 +21,10 @@ function CartItem({item, removeCartItem, addOne, removeOne}){
 
     function add_one(){
         addOne(item.id)
-        console.log(item)
     }
 
     function remove_one(){
         removeOne(item.id)
-        console.log(item)
     }
 
     const sub_total = Number(item.qty) * Number(item.sale_price)

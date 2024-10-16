@@ -75,6 +75,10 @@ def items_by_id(id):
     if request.method == 'PATCH':
         data = request.get_json()
         for attr in data:
+            if attr == 'qty':
+                data[attr] = int(data[attr])
+            if attr == 'price':
+                data[attr] = float(data[attr])
             setattr(item, attr, data[attr])
         db.session.add(item)
         db.session.commit()
@@ -114,6 +118,10 @@ def cart_update(id):
     if request.method == 'PATCH':
         data = request.get_json()
         for attr in data:
+            if attr == 'qty':
+                data['qty'] = int(data['qty'])
+            if attr == 'sale_price':
+                data['sale-price'] = float(data['sale-price'])
             setattr(item, attr, data[attr])
         db.session.add(item)
         db.session.commit()

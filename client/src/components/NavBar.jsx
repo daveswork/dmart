@@ -8,7 +8,7 @@ function NavBar({shoppingCartList}){
     const total_cart_items = shoppingCartList.reduce((total, item) => total + Number(item.qty), initialValue)
     return (
         <div>
-            <nav className="navbar">
+            <nav className="my-navbar">
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/cart">Cart: {total_cart_items}</NavLink>
                 <NavLink to="/purchases">Purchases</NavLink>
