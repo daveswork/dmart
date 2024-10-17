@@ -25,10 +25,13 @@ def run():
               {'name':'pot', 'link':'/pot.jpg', 'description':'A basic pot'}]
     items = []
     for i in range(4):
+        firstname = fake.first_name_nonbinary()
+        lastname = fake.last_name_nonbinary()
+        username = firstname[0].lower() + lastname.lower()
         u = User(
-            firstname=fake.first_name_nonbinary(),
-            lastname = fake.last_name_nonbinary(),
-            username=fake.user_name()
+            firstname=firstname,
+            lastname=lastname,
+            username=username
         )
         users.append(u)
 

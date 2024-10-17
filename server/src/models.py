@@ -39,7 +39,7 @@ class User(db.Model, SerializerMixin):
         raise AttributeError('Password hashes cannot be viewed')
     
     @password_hash.setter
-    def password(self, plain_text_password):
+    def password_hash(self, plain_text_password):
         password_hash = bcrypt.generate_password_hash(
             plain_text_password.encode('utf-8')
         )

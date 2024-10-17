@@ -18,14 +18,14 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
-# Stripe config
+# Stripe config and functions
+#
 stripe.api_key = os.environ.get('STRIPE_SECRET')
 
 def calculate_order_total(items):
     # Calculate order total
     # Payment using an aggregate total
     return 1400
-
 
 @app.route('/create_payment_intent', methods=['POST'])
 def create_payment():
@@ -45,6 +45,65 @@ def create_payment():
     except Exception as e:
         print(e)
 
+# User routes and functions
+
+# Signup
+@app.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    if data.get('username') is None:
+        return {'Error': 'Invalid username'},422
+    existing_user = User.query.filter_by(username=data.get('username')).first()
+    if existing_user is not None:
+        return {'Error' : 'Username already assigned'},422
+    user = User(
+        username=data.get('username')
+    )
+    try:
+        user.password_hash = data.get('password')
+        user.firstname = data.get('firstname')
+        user.lastname = data.get('lastname')
+    except:
+        return {'Error':'Invalid user data.'}, 422
+    if not user:
+        return {'Error':'Invalid user data. Could not create user.'}, 422
+    else:
+        db.session.add(user)
+        db.session.commit()
+        session['user_id'] = user.id
+        return user.to_dict(),200
+
+# Login
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    user = User.query.filter(User.username == username).first()
+    if user is not None and user.authenticate(password):
+        session['user_id'] = user.id
+        return user.to_dict(), 200
+    else:
+        return {'Error': 'Unauthorized'}, 401
+
+# Logout
+@app.route('/logout', methods=['DELETE'])
+def logout():
+    if session.get('user_id'):
+        session.pop('user_id')
+        return "",200
+    else:
+        return {'Error': 'Unauthorized'}, 401
+
+
+# Check Session
+@app.route('/check_session')
+def check_session():
+    if session.get('user_id'):
+        user = User.query.filter(User.id == session['user_id']).first()
+        return user.to_dict(),200
+    else:
+        return {'Error':'Unauthorized'},401
 
 # Item route and functions
 #
