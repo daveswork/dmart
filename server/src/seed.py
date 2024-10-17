@@ -33,6 +33,7 @@ def run():
             lastname=lastname,
             username=username
         )
+        u.password_hash = "asdf1234"
         users.append(u)
 
     for i in range(len(things)):
