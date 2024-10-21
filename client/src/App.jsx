@@ -13,6 +13,9 @@ function App() {
   const [count, setCount] = useState(0)
   const items = useLoaderData()
 
+  // User State
+  const [user, setUser] = useState(null);
+
   //==============================================================================================
   // ProductList states and functions
   const [productList, setProductList] = useState([])
@@ -135,7 +138,8 @@ function App() {
     <Outlet context={{
       productList:productList, setProductList:setProductList, updateProductList:updateProductList,
       shoppingCartList:shoppingCartList, setShoppingCartList:setShoppingCartList, removeCartItem:removeCartItem, updateShoppingCart:updateShoppingCart, addOne:addOne, removeOne:removeOne,
-      purchasesList:purchasesList, setPurchasesList:setPurchasesList
+      purchasesList:purchasesList, setPurchasesList:setPurchasesList,
+      user:user, setUser:setUser
     }}/>
   </div>
   )

@@ -14,6 +14,8 @@ function NavBar({shoppingCartList}){
                 <NavLink to="/purchases">Purchases</NavLink>
                 <NavLink to="/profile">Profile</NavLink>
                 <NavLink to="/add-item">Add Item</NavLink>
+                <NavLink to="/login">Login</NavLink>
+                <NavLink to="/logout">Logout</NavLink>
             </nav>
         </div>
     )

@@ -8,11 +8,13 @@ import Cart from './components/Cart.jsx'
 import Purchases from './components/Purchases.jsx'
 import AddItem from './components/AddItem.jsx'
 import Profile from './components/Profile.jsx'
+import Login from './components/Login.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { itemsLoader, itemDetailsLoader, cartListLoader, purchasesListLoader } from './loaders.js'
 
 import ErrorPage  from './components/ErrorPage.jsx'
+import Logout from './components/Logout.jsx'
 
 
 // createRoot(document.getElementById('root')).render(
@@ -50,6 +52,14 @@ const router = createBrowserRouter([
       {
         path: '/add-item',
         element: <AddItem />
+      }, 
+      {
+        path: '/login',
+        element: <Login />
+      },
+      {
+        path: '/logout',
+        element: <Logout />
       }
     ]
   }
