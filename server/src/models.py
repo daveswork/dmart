@@ -4,6 +4,7 @@ from sqlalchemy import MetaData
 from sqlalchemy.orm import validates
 from flask_bcrypt import Bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.dialects.postgresql import JSON
 
 
 # naming convention for db constraints (fixes an alembic bug)

@@ -1,8 +1,8 @@
-"""Initial db creation.
+"""Using aws rds postgres db.
 
-Revision ID: cb5efcde14ac
+Revision ID: 8e96404302ea
 Revises: 
-Create Date: 2024-09-27 11:10:38.872425
+Create Date: 2024-10-21 11:48:40.502359
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cb5efcde14ac'
+revision = '8e96404302ea'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,11 +32,13 @@ def upgrade():
     sa.Column('username', sa.String(), nullable=True),
     sa.Column('firstname', sa.String(), nullable=True),
     sa.Column('lastname', sa.String(), nullable=True),
+    sa.Column('_password_hash', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_users'))
     )
     op.create_table('cart',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('qty', sa.Integer(), nullable=True),
+    sa.Column('sale_price', sa.Float(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('item_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['item_id'], ['items.id'], name=op.f('fk_cart_item_id_items')),

@@ -24,6 +24,13 @@ Allows you to add a new item to the inventory.
 STRIPE_SECRET # Stripe API Secret Key
 APP_SECRET_KEY # A unique secret key for use in JWT authentication
 
+Credentials for Postgres connection:
+PG_USER = os.environ.get('PG_USER')
+PG_PASS = os.environ.get('PG_PASS')
+PG_URL = os.environ.get('PG_URL')
+
+Ensure the `dmartdb` is created prior to running the migration scripts.
+
 To create the secret key use the following:
 ```
 export APP_SECRET_KEY=$(python -c 'import secrets; print(secrets.token_hex(16))')

@@ -6,11 +6,17 @@ from flask import Flask, request, session, jsonify
 from flask_migrate import Migrate
 from models import db, User, Item, Cart, Purchase
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 
 
 # FLASK app config
+PG_USER = os.environ.get('PG_USER')
+PG_PASS = os.environ.get('PG_PASS')
+PG_URL = os.environ.get('PG_URL')
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{PG_USER}:{PG_PASS}@{PG_URL}/dmartdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.environ.get('APP_SECRET_KEY')
 
