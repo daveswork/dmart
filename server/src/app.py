@@ -218,7 +218,8 @@ def add_to_cart(id):
         cart_item = Cart(
             qty =1,
             sale_price = item.price,
-            item_id = item.id
+            item_id = item.id,
+            user_id = session.get('user_id')
         )
         db.session.add(cart_item)
         db.session.commit()
