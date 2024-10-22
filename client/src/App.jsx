@@ -134,7 +134,7 @@ function App() {
 
   return (
   <div>
-    <header><NavBar shoppingCartList={shoppingCartList}/></header>
+    <header><NavBar shoppingCartList={shoppingCartList} user={user} setUser={setUser}/></header>
     <Outlet context={{
       productList:productList, setProductList:setProductList, updateProductList:updateProductList,
       shoppingCartList:shoppingCartList, setShoppingCartList:setShoppingCartList, removeCartItem:removeCartItem, updateShoppingCart:updateShoppingCart, addOne:addOne, removeOne:removeOne,

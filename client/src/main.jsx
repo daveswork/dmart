@@ -15,6 +15,7 @@ import { itemsLoader, itemDetailsLoader, cartListLoader, purchasesListLoader } f
 
 import ErrorPage  from './components/ErrorPage.jsx'
 import Logout from './components/Logout.jsx'
+import Signup from './components/Signup.jsx'
 
 
 // createRoot(document.getElementById('root')).render(
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: '/logout',
         element: <Logout />
+      },
+      {
+        path: '/signup',
+        element: <Signup />
       }
     ]
   }

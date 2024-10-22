@@ -1,16 +1,21 @@
-import { useOutletContext } from "react-router-dom"
+import { useNavigate, useOutletContext } from "react-router-dom"
 
 
 function Logout(){
 
     const {user, setUser} = useOutletContext()
+    const nav = useNavigate()
 
     function logoutUser(){
         fetch(`/api/logout`,
             {
                 method: "DELETE"
             }
-        ).then((response)=> setUser(""))
+        ).then((response)=> {
+            setUser("")
+            nav("/")
+            
+        })
     }
 
     return(

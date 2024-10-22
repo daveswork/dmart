@@ -1,11 +1,26 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useOutletContext } from "react-router-dom";
 import './NavBar.css'
 
-function NavBar({shoppingCartList}){
+function NavBar({shoppingCartList, user, setUser}){
 
 
     const initialValue = 0
     const total_cart_items = shoppingCartList.reduce((total, item) => total + Number(item.qty), initialValue)
+
+
+    function logoutUser(){
+        fetch(`/api/logout`,
+            {
+                method: "DELETE"
+            }
+        ).then((response)=> {
+            setUser("")
+            // nav("/")
+            
+        })
+    }
+
+
     return (
         <div>
             <nav className="my-navbar">
@@ -14,8 +29,12 @@ function NavBar({shoppingCartList}){
                 <NavLink to="/purchases">Purchases</NavLink>
                 <NavLink to="/profile">Profile</NavLink>
                 <NavLink to="/add-item">Add Item</NavLink>
-                <NavLink to="/login">Login</NavLink>
-                <NavLink to="/logout">Logout</NavLink>
+                {user ? (<NavLink onClick={logoutUser}>Logout</NavLink>):(
+                    <>
+                    <NavLink to="/login">Login</NavLink>
+                    <NavLink to="/signup">Signup</NavLink>
+                    </>
+                    )}
             </nav>
         </div>
     )

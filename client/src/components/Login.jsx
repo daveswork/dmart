@@ -1,6 +1,6 @@
 import { data, event } from "jquery"
 import { useState } from "react"
-import { useOutletContext } from "react-router-dom"
+import { useNavigate, useOutletContext } from "react-router-dom"
 
 
 function Login(){
@@ -10,6 +10,7 @@ function Login(){
     const [errors, setErrors] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const {setUser} = useOutletContext()
+    const nav = useNavigate()
 
     function handleUsernameChange(event){
         setUsername(event.target.value)
@@ -32,6 +33,7 @@ function Login(){
             setUser(data)
             setUsername("")
             setPassword("")
+            nav("/")
         })
     }
 
