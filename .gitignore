@@ -364,3 +364,4 @@ dist
 # misc
 package-lock.json
 /build
+*.pem
