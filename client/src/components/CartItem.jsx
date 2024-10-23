@@ -33,7 +33,7 @@ function CartItem({item, removeCartItem, addOne, removeOne}){
         <div className="Card">
             <img src={item.items.item_image} />
             <p>Quantity: <button onClick={add_one}>+</button>{item.qty}<button onClick={remove_one}>-</button></p>
-            <p>Price: {item.sale_price}</p>
+            <p>Price: {USDollar.format(item.sale_price)}</p>
             <p>Subtotal: {USDollar.format(sub_total)}</p>
             <button onClick={removeFromCart}>Remove from Cart.</button>
         </div>

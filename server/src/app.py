@@ -47,7 +47,27 @@ def create_payment():
         return jsonify({
             'clientSecret' : intent['client_secret'],
             'dpmCheckerLink' : 'https://dashboard.stripe.com/settings/payment_methods/review?transaction_id={}'.format(intent['id']),
-        })
+        }),200
+    except Exception as e:
+        print(e)
+
+@app.route('/list_payment_intents')
+def list_intents():
+    try:
+        intents = stripe.PaymentIntent.list()
+        return jsonify(intents.get('data')),200
+    except:
+        print('Something went wrong')
+
+@app.route('/cancel_payment_intent', methods=['POST'])
+def cancel_payment_intent():
+    try:
+        data = request.get_json()
+        intent_id = data.get("intent_id")
+        cancellation = ""
+        if intent_id is not None:
+            cancellation = stripe.PaymentIntent.cancel(intent=intent_id, cancellation_reason='abandoned')
+        return jsonify(cancellation),200
     except Exception as e:
         print(e)
 
