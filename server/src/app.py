@@ -71,6 +71,40 @@ def cancel_payment_intent():
     except Exception as e:
         print(e)
 
+@app.route('/checkout', methods=['POST'])
+def checkout_cart_items():
+    try:
+        data = request.get_json()
+        print(data)
+        line_items =[]
+        for cart_item in data:
+            item = Item.query.filter_by(id=cart_item['item_id']).first()
+            sale_price = int(item.price * 100)
+            line_item_data = {
+                "price_data" : {
+                    "currency" : "usd",
+                    "product_data":{
+                        "name": item.name
+                    },
+                    "unit_amount": sale_price,
+                },
+                "quantity": cart_item.get("qty")
+            }
+            line_items.append(line_item_data)
+        print(line_items)
+    
+
+        checkout_session = stripe.checkout.Session.create(
+            line_items=line_items,
+            mode='payment',
+            success_url='https://localhost:5173/purchases',
+            cancel_url='https://localhost:5173/cancel'
+        )
+        print(checkout_session)
+        return jsonify({"url":checkout_session.url})
+    except Exception as e:
+        print(e)
+
 # User routes and functions
 
 # Signup

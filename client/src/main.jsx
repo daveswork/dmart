@@ -16,6 +16,7 @@ import { itemsLoader, itemDetailsLoader, cartListLoader, purchasesListLoader } f
 import ErrorPage  from './components/ErrorPage.jsx'
 import Logout from './components/Logout.jsx'
 import Signup from './components/Signup.jsx'
+import Cancel from './components/Cancel.jsx'
 
 
 // createRoot(document.getElementById('root')).render(
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     loader: itemsLoader, 
     children: [
+      {
+        path:"/cancel",
+        element: <Cancel />
+      },
       {
         path: '/',
         element: <Catalogue />,

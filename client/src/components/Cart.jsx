@@ -17,15 +17,36 @@ function Cart(){
     }
 )
 
-const USDollar = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-})
+    const USDollar = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    })
 
+    function checkOutCartItems(){
+        const checkoutItems = shoppingCartList.map(item => {
+            return(
+                {
+                    "item_id": item.item_id,
+                    "qty": item.qty
+                }
+            )
+        })
+        fetch('/api/checkout', {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/JSON"
+            },
+            body: JSON.stringify(checkoutItems)
+        }).then( response => response.json())
+        .then(data => {
+            window.location = data.url
+        })
+    }
 
     return (
         <div>
             Current cart total: {USDollar.format(total_cart_value)}<br/>
+            <button onClick={checkOutCartItems}>Check out!</button><br/>
             Your shopping cart items:
             <div className="catlogue">
                 {item_cards}
