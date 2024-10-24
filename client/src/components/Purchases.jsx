@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom"
 
 function Purchases(){
 
-    const {user, setUser} = useOutletContext()
+    const {user, setUser, purchaseList} = useOutletContext()
 
     useEffect(()=>{
         fetch('/api/check_session')

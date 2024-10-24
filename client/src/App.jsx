@@ -135,12 +135,17 @@ function App() {
   // PurchasesList states and functions
   const [purchasesList, setPurchasesList] = useState([])
   useEffect(()=>{
-    fetch("/api/purchases")
-    .then(response => response.json())
-    .then(items =>{
-      setPurchasesList(items)
+    fetch("/api/purcahsed_items")
+    .then(response => {
+      if(response.ok){
+        setPurchasesList(response.json())
+      }else{
+        setPurchasesList([])
+      }
     })
-  }, [])
+  }, [user])
+
+  console.log(purchasesList)
 
   return (
   <div>

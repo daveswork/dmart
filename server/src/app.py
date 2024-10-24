@@ -359,6 +359,17 @@ def purchases_update(id):
         db.session.delete(item)
         db.session.commit()
         return {}, 200
+    
+@app.route('/purcahsed_items')
+def purchased_items():
+    current_user = session.get('user_id')
+    if current_user is None:
+        return {'Error':'Unauthorized'},401
+    print(current_user)
+    all_purchased_items = Purchase.query.filter_by(user_id=current_user).all()
+    all_your_items = [item.to_dict() for item in all_purchased_items]
+    return all_your_items,200
+
 
 
 if __name__ == '__main__':
