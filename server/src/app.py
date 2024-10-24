@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from models import db, User, Item, Cart, Purchase
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime, timezone
 
 
 # FLASK app config
@@ -93,6 +94,8 @@ def checkout_cart_items():
             }
             line_items.append(line_item_data)
         print(line_items)
+
+
     
         checkout_session = stripe.checkout.Session.create(
             line_items=line_items,
@@ -101,6 +104,31 @@ def checkout_cart_items():
             cancel_url='https://localhost:5173/cancel'
         )
         print(checkout_session)
+        purchased_list = []
+        all_cart_items = Cart.query.filter_by(user_id=session['user_id']).all()
+        for item in all_cart_items:
+            purchased_item = Purchase(
+                date=datetime.now().strftime('%FT%X'),
+                qty=item.qty,
+                sale_price=item.sale_price,
+                user_id=item.user_id,
+                item_id=item.item_id
+            )
+            purchased_list.append(purchased_item)
+        print(purchased_list)
+        db.session.add_all(purchased_list)
+        db.session.commit()
+        
+
+        Cart.query.filter_by(user_id=session['user_id']).delete(synchronize_session='evaluate')
+        db.session.commit()
+
+
+        # cart_items = Cart.query.filter_by(user_id=session['user_id']).all()
+        # for item in cart_items:
+        #     Cart.query.delete(item)
+        #     db.session.commit()
+
         return jsonify({"url":checkout_session.url})
     except Exception as e:
         print(e)

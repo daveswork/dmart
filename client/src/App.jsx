@@ -15,6 +15,16 @@ function App() {
 
   // User State
   const [user, setUser] = useState(null);
+  useEffect(()=>{
+    fetch('/api/check_session')
+    .then(response => response.json())
+    .then((data) => {
+        console.log(data)
+        setUser(data)}
+)
+
+}, [])
+  
 
   //==============================================================================================
   // ProductList states and functions

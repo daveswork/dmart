@@ -18,7 +18,7 @@ function Purchases(){
 
     return (
         <div>
-            Hello, {user.firstname}! <br/>
+            Hello! <br/>
             Here are yourPurchases!
         </div>
     )
