@@ -93,7 +93,6 @@ def checkout_cart_items():
             line_items.append(line_item_data)
         print(line_items)
     
-
         checkout_session = stripe.checkout.Session.create(
             line_items=line_items,
             mode='payment',
