@@ -82,7 +82,7 @@ function Purchases(){
     return (
         <div>
             Hello! <br/>
-            Here are your purchases!
+            Here are your purchases, {user?user.firstname:"Guest"}!
             <table>
                 <tbody>
                     <tr>

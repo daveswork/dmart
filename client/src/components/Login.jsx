@@ -44,7 +44,7 @@ function Login(){
                 <input onChange={(event)=>{handleUsernameChange(event)}} name="username" id="username" type="text" value={username}/>
                 <label htmlFor="password">Password:</label>
                 <input onChange={(event)=>{handlePasswordChange(event)}} name="password" id="password" type="password" value={password}/>
-                <input type="submit" value="Submit" />
+                <input className="submit" type="submit" value="Submit" />
             </form>
         </div>
     )

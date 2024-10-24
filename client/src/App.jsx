@@ -17,11 +17,17 @@ function App() {
   const [user, setUser] = useState(null);
   useEffect(()=>{
     fetch('/api/check_session')
-    .then(response => response.json())
-    .then((data) => {
-        console.log(data)
-        setUser(data)}
-)
+    .then(response => {
+      if(response.ok){
+        setUser(response.json())
+      }else{
+        setUser("")
+      }
+    })
+//     .then((data) => {
+//         console.log(data)
+//         setUser(data)}
+// )
 
 }, [])
   

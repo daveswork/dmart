@@ -46,7 +46,7 @@ function Cart(){
     return (
         <div>
             Current cart total: {USDollar.format(total_cart_value)}<br/>
-            <button onClick={checkOutCartItems}>Check out!</button><br/>
+            <button className="button" onClick={checkOutCartItems}>Check out!</button><br/>
             Your shopping cart items:
             <div className="catlogue">
                 {item_cards}

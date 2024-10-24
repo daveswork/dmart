@@ -7,7 +7,7 @@ function CatalogueItemCard({item, updateShoppingCart}){
 
     function addToCart(){
 
-        if (user){
+        if (user !== ""){
 
         fetch(`/api/add-to-cart/${item.id}`)
         .then(resp => resp.json())

@@ -39,17 +39,14 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Catalogue />,
-        loader: itemsLoader
       }, 
       {
         path: '/cart',
         element: <Cart />,
-        loader: cartListLoader
       }, 
       {
         path: '/purchases',
         element: <Purchases />,
-        loader: purchasesListLoader
       },
       {
         path: '/profile',

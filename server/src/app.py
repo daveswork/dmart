@@ -100,10 +100,11 @@ def checkout_cart_items():
         checkout_session = stripe.checkout.Session.create(
             line_items=line_items,
             mode='payment',
-            success_url='https://localhost:5173/purchases',
-            cancel_url='https://localhost:5173/cancel'
+            success_url='https://10.129.3.207:5173/purchases',
+            cancel_url='https://10.129.3.207:5173/cancel'
         )
         print(checkout_session)
+        print(session['user_id'])
         purchased_list = []
         all_cart_items = Cart.query.filter_by(user_id=session['user_id']).all()
         for item in all_cart_items:
@@ -118,7 +119,7 @@ def checkout_cart_items():
         print(purchased_list)
         db.session.add_all(purchased_list)
         db.session.commit()
-        
+
 
         Cart.query.filter_by(user_id=session['user_id']).delete(synchronize_session='evaluate')
         db.session.commit()
@@ -140,6 +141,7 @@ def checkout_cart_items():
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
+    print(data)
     if data.get('username') is None:
         return {'Error': 'Invalid username'},422
     existing_user = User.query.filter_by(username=data.get('username')).first()
