@@ -360,7 +360,7 @@ def purchases_update(id):
         db.session.commit()
         return {}, 200
     
-@app.route('/purcahsed_items')
+@app.route('/purchased_items')
 def purchased_items():
     current_user = session.get('user_id')
     if current_user is None:
