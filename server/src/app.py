@@ -24,6 +24,7 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
+################################################################################
 # Stripe config and functions
 #
 stripe.api_key = os.environ.get('STRIPE_SECRET')
@@ -104,6 +105,7 @@ def checkout_cart_items():
     except Exception as e:
         print(e)
 
+################################################################################
 # User routes and functions
 
 # Signup
@@ -164,6 +166,7 @@ def check_session():
     else:
         return {'Error':'Unauthorized'},401
 
+################################################################################
 # Item route and functions
 #
 @app.route('/items', methods=['GET', 'POST'])
@@ -291,7 +294,7 @@ def add_to_cart(id):
         return cart_item.to_dict(),200
 
     
-
+################################################################################
 # Purchases route and functions
 #
 @app.route('/purchases', methods=['GET', 'POST'])
