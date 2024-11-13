@@ -1,6 +1,8 @@
 # dmart
 A simple shopping application. 
 
+Demo: https://youtu.be/jaIMGyU75XI
+
 ## Home view:
 Displays a catalogue of products currently in inventory. 
 Allows you add an item to the shopping cart. 
@@ -22,11 +24,15 @@ Allows you to add a new item to the inventory.
 
 ### ENV vars
 STRIPE_SECRET # Stripe API Secret Key
+
 APP_SECRET_KEY # A unique secret key for use in JWT authentication
 
 Credentials for Postgres connection:
+
 PG_USER = os.environ.get('PG_USER')
+
 PG_PASS = os.environ.get('PG_PASS')
+
 PG_URL = os.environ.get('PG_URL')
 
 Ensure the `dmartdb` is created prior to running the migration scripts.
